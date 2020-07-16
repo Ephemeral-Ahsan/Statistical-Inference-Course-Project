@@ -1,0 +1,56 @@
+---
+title: "Basic Inferential Data Analysis"
+author: "Ahsan Habib Sunny"
+date: "7/15/2020"
+output: pdf_document
+---
+
+# Basic Inferential Data Analysis Instructions
+
+```{r}
+library(datasets)
+library(ggplot2)
+
+data("ToothGrowth")
+
+str(ToothGrowth)
+
+summary(ToothGrowth)
+
+```
+
+```{r}
+
+ggplot(ToothGrowth,aes(as.factor(dose),len),fill=supp,)+geom_bar(stat="identity")+ facet_grid(. ~ supp)+xlab("Dose")+ylab("Length")
+
+```
+
+# Hypothesis tests to compare tooth growth by supp and dose.
+
+```{r}
+h1 <- t.test(len ~ supp, data = ToothGrowth)
+h1$conf.int
+h1$p.value
+
+```
+
+```{r}
+h2 <- t.test(len ~ supp, data = subset(ToothGrowth,dose==0.5))
+h2$conf.int
+h2$p.value
+```
+```{r}
+h3 <- t.test(len ~ supp, data = subset(ToothGrowth,dose==1))
+h3$conf.int
+h3$p.value
+```
+
+```{r}
+h4 <- t.test(len ~ supp, data = subset(ToothGrowth,dose==2))
+h4$conf.int
+h4$p.value
+```
+
+# Conlusions
+
+_OJ ensures more tooth growth than VC for dosages 0.5 & 1.0. OJ and VC givesthe same amount of tooth growth for dose amount 2.0 mg/day. For the entire trail we cannot conclude OJ is more effective that VC for all scenarios._

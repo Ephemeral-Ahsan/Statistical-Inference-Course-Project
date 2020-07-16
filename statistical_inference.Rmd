@@ -1,0 +1,49 @@
+---
+title: "Statistical Inference Project"
+author: "Ahsan Habib Sunny"
+date: "7/14/2020"
+output: pdf_document
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Comparison betweeen theoretical average and calculated sample average.
+
+```{r}
+set.seed(4085)
+n<- 40
+Simulation<- 1000
+lambda<- 0.2
+
+samplemean <- NULL
+
+for(i in 1:Simulation) {
+  samplemean <-c(samplemean, mean(rexp(n, lambda)))
+}
+mean(samplemean)
+
+```
+#### so, as we can see that our theoretical exponential mean is 1/0.2=5 and our calculated sample mean is close to 5 which is 5.012
+
+# Comparison betweeen theoretical variance and calculated.
+
+```{r}
+variance <- var(samplemean)
+
+variance
+
+```
+#### our calculated variance is 0.66 whereas the theoretical variance is the square of theoretical sd which is (1/0.2)^2=25.
+
+# Show whether the distribution is normal or not.
+
+```{r}
+hist(samplemean, breaks = n, prob = T, col = "blue", xlab = "Means")
+x <- seq(min(samplemean), max(samplemean), length = 100)
+lines(x,dnorm(x,1/lambda,(1/lambda/sqrt(n))),col="green")
+
+```
+*The distribution averages of 40 exponentials is very close to a normal distribution*
+
+
+
